@@ -2,8 +2,8 @@ import React from 'react';
 import Card from '../Card/Card';
 
 
-const Ideas = ({ideas}) => {
-  const ideaCards = ideas.map(idea => <Card key={idea.id} {...idea} />)
+const Ideas = ({ideas, removeIdea}) => {
+  const ideaCards = ideas.map(idea => <Card key={idea.id} removeIdea={removeIdea} {...idea} />)
   return(
     <section>
       {ideaCards}

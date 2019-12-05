@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-
+import Ideas from '../Ideas/Ideas';
 import './App.css';
 
-function App() {
+const App = () => {
   const [ideas, setIdeas] = useState([]);
   const [hasErrored, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -16,16 +16,23 @@ function App() {
     setIdeas(filteredIdeas);
   }
 
-  useEffect(() => {
+  const fetchIdeas = () => {
     fetch('http://localhost:3001/api/v1/ideas')
     .then(res => res.json())
     .then(ideas => setIdeas(ideas))
-  })
+  }
+
+  useEffect(() => {
+    fetchIdeas();
+  }, [])
 
   return (
-    <div className="App">
+    <main className="App">
       <h1>hookbox</h1>
-    </div>
+      <Ideas
+        removeIdea={deleteIdea}
+        ideas={ideas} />
+    </main>
   );
 }
 
