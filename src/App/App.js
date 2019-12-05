@@ -9,7 +9,16 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const addIdea = idea => {
-    setIdeas([...ideas, idea])
+    const options = {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(idea)
+    }
+    fetch('http://localhost:3001/api/v1/ideas', options)
+    .then(res => res.json())
+    .then(idea => setIdeas([...ideas, idea]))
   }
 
   const deleteIdea = id => {
