@@ -30,7 +30,7 @@ const App = () => {
   return (
     <main className="App">
       <h1>hookbox</h1>
-      <Form />
+      <Form addIdea={addIdea}/>
       <Ideas
         removeIdea={deleteIdea}
         ideas={ideas} />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Form = () => {
+const Form = ({addIdea}) => {
   const [info, setInfo] = useState({
     title: '',
     description: ''
@@ -12,6 +12,11 @@ const Form = () => {
       ...info,
       [name]: value
     })
+  }
+
+  const handleClick = event => {
+    event.preventDefault();
+    addIdea({...info, id: Date.now()})
   }
 
   return (
@@ -28,7 +33,10 @@ const Form = () => {
         value={info.description}
         onChange={handleChange}
         placeholder='Add description'/>
-      <input type='submit' value='Add Idea'/>
+      <input
+        onClick={handleClick}
+        type='submit'
+        value='Add Idea'/>
     </form>
   )
 }
