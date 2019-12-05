@@ -7,6 +7,14 @@ function App() {
   const [hasErrored, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
+  const addIdea = idea => {
+    setIdeas([...ideas, idea])
+  }
+
+  const deleteIdea = id => {
+    const filteredIdeas = ideas.filter(idea => idea.id !== id);
+    setIdeas(filteredIdeas);
+  }
 
   useEffect(() => {
     fetch('http://localhost:3001/api/v1/ideas')
