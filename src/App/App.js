@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Ideas from '../Ideas/Ideas';
 import Form from '../Form/Form';
+import { fetchIdeas } from '../utils/apiCalls'
 import './App.css';
 
 const App = () => {
@@ -16,24 +17,33 @@ const App = () => {
       },
       body: JSON.stringify(idea)
     }
-    fetch('http://localhost:3001/api/v1/ideas', options)
-    .then(res => res.json())
+    fetchIdeas('http://localhost:3001/api/v1/ideas', options)
     .then(idea => setIdeas([...ideas, idea]))
   }
 
-  const deleteIdea = id => {
+  const addIdeaSync = idea => {
+    setIdeas([...ideas, idea])
+  }
+  const deleteIdeaSync = id => {
     const filteredIdeas = ideas.filter(idea => idea.id !== id);
     setIdeas(filteredIdeas);
   }
 
-  const fetchIdeas = () => {
-    fetch('http://localhost:3001/api/v1/ideas')
-    .then(res => res.json())
-    .then(ideas => setIdeas(ideas))
+  const deleteIdea = id => {
+    const filteredIdeas = ideas.filter(idea => idea.id !== id);
+    const options = {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    setIdeas(filteredIdeas);
+    fetchIdeas(`http://localhost:3001/api/v1/ideas/${id}`, options);
   }
 
   useEffect(() => {
-    fetchIdeas();
+    fetchIdeas('http://localhost:3001/api/v1/ideas')
+      .then(ideas => setIdeas(ideas));
   }, [])
 
   return (
